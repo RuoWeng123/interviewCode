@@ -1,0 +1,50 @@
+### 解题思路
+
+把每个节点想成珠子，合并的过程就是用线把珠子串起来，比较两个链表当前节点大小，串进小的，再将指向较小值的指针后移，直到某个链表的珠子全都串完，再把另一个链表剩下的珠子一次性都给串进去
+
+### 代码
+
+* javascript
+
+```javascript
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} list1
+ * @param {ListNode} list2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(list1, list2) {
+    let res = new ListNode(0);//先往里面放了个无关数
+    let cur = res;
+    while(list1 && list2) {
+        // while(list1 && list2 && list1.val <= list2.val) {//法一：用while循环，找到链表a中小于等于链表b当前节点的所有节点,cur指向这些节点
+        //     cur.next = list1;
+        //     list1 = list1.next;
+        //     cur = cur.next;
+        // }
+        // while(list1 && list2 && list1.val > list2.val) {
+        //     cur.next = list2;
+        //     list2 = list2.next;
+        //     cur = cur.next;
+        // }
+        if(list1.val < list2.val) {//法二：直接每次判断两边的节点值，cur.next指向较小值，更新cur的位置，list前进
+            cur.next = list1;
+            list1 = list1.next;
+        } else {
+            cur.next = list2;
+            list2 = list2.next
+        }
+        cur = cur.next;
+    }
+    cur.next = list1 == null ? list2 : list1;//cur.next指向剩余链表
+    return res.next; //最开始的节点不属于两个链表，返回下一个节点组成的有序链表
+};
+
+```
+
