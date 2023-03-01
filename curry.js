@@ -1,3 +1,4 @@
+// 柯里化函数
 function curry(fn){
   let params = [];
   

@@ -58,3 +58,8 @@ const arrTransverseTree = (arr) =>{
 }
 let result = arrTransverseTree(arr);
 console.log(result);
+
+// 递归
+function nest(pid, arr){
+  return arr.filter(item => item.parentId === pid).map(item => ({...item, children: nest(item.id, arr)}));
+}

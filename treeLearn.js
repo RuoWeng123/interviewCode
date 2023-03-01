@@ -103,11 +103,12 @@ class Node {
   }
 }
 
-// 数组转树结构
-function arrayToTree(arr) {
-  let tree = new myTree();
-  arr.forEach(item => {
-    tree.insert(item);
-  });
-  return tree;
-}
+let treeInstance = new myTree();
+treeInstance.insert(11);
+treeInstance.insert(7);
+treeInstance.insert(15);
+treeInstance.insert(5);
+treeInstance.insert(3);
+treeInstance.insert(9);
+treeInstance.insert(8);
+console.log(treeInstance);
