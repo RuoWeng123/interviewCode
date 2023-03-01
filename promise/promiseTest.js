@@ -33,3 +33,23 @@ console.log('script end');
 // async1 end
 // promise3
 // setTimeout
+
+
+setTimeout(function(){
+  console.log(1)
+}, 100);
+
+new Promise(function(resolve){
+  console.log(2);
+  resolve();
+  console.log(3);
+}).then(function(){
+  console.log(4);
+  new Promise((resolve, reject) =>{
+    console.log(5);
+    setTimeout(() => {
+      console.log(6);
+    },10);  // 当这里的时间比1的时间小，先执行6，再执行1
+  });
+});
+console.log(7);

@@ -64,6 +64,22 @@ class myTree {
       callback(node.data);
     }
   }
+
+  // 广度优先遍历
+  breadthFirstTraverse(callback) {
+    let queue = [];
+    queue.push(this.root);
+    while (queue.length > 0) {
+      let node = queue.shift();
+      callback(node.data);
+      if (node.left !== null) {
+        queue.push(node.left);
+      }
+      if (node.right !== null) {
+        queue.push(node.right);
+      }
+    }
+  }
   // 最小值
   min() {
     return this.minNode(this.root);
@@ -104,11 +120,16 @@ class Node {
 }
 
 let treeInstance = new myTree();
-treeInstance.insert(11);
-treeInstance.insert(7);
-treeInstance.insert(15);
-treeInstance.insert(5);
+treeInstance.insert(1);
+treeInstance.insert(2);
 treeInstance.insert(3);
-treeInstance.insert(9);
-treeInstance.insert(8);
+treeInstance.insert(null);
+treeInstance.insert(5);
+treeInstance.insert(null);
+treeInstance.insert(4);
 console.log(treeInstance);
+
+// treeInstance.inOrderTraverse((data) =>{ console.log('innerSport', data)});
+// treeInstance.preOrderTraverse((data) =>{ console.log('preSport', data)});
+treeInstance.postOrderTraverse((data) =>{ console.log('postSport', data)});
+
