@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ring</title>
+</head>
+<body style="background-color:#1B1B2D">
+  <canvas id="myCanvas" width="200" height="200"></canvas>
+</body>
+<script>
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+const radius = 60;
+const lineWidth = 20;
+const startAngle = -0.5 * Math.PI; // 12点钟方向
+const endAngle = startAngle + 2 * Math.PI; // 一周
+
+function drawProgressCircle(progress) {
+  
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = '#2C2C3C';
+  ctx.stroke();
+
+  if(progress > 0){
+    const gradient = ctx.createConicGradient(startAngle, centerX, centerY);
+    // Add five color stops
+    gradient.addColorStop(0, "#125C2F");
+    gradient.addColorStop(progress, "#42F379");
+    gradient.addColorStop(1, "#125C2F");
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, startAngle, startAngle + progress * 2 * Math.PI);
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = gradient;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+
+}
+
+// 调用示例，表示50%的进度
+drawProgressCircle(1);
+</script>
+</html>
