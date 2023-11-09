@@ -33,7 +33,7 @@ const findParent = function(id, tree) {
   }
 
 }
-const formataArrToTree = function(arr) {
+const formatArrToTree = function(arr) {
   let len = arr.length;
   for (let i = 0; i < len; i++) {
     let item = arr[i];
@@ -56,7 +56,7 @@ const formataArrToTree = function(arr) {
     }
   }
   if (arr.length) {
-    formataArrToTree(arr);
+    formatArrToTree(arr);
   }
 }
 
@@ -69,7 +69,7 @@ let arr = [
   {id: 5, patientId: 2},
   {id: 6, patientId: 3},
   {id: 7, patientId: 3}];
-formataArrToTree(arr);
+formatArrToTree(arr);
 console.log(tree);
 
 // 将tree 逆转为  数组

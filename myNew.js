@@ -4,3 +4,7 @@ function myNew(fn, ...args){
   let result = fn.apply(obj, args);
   return typeof result === 'object' ? result : obj;
 }
+switch (type) {
+  case 'String':
+    return String(obj);
+}

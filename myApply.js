@@ -5,11 +5,7 @@ Function.prototype.apply = function(context, arr){
     if(!arr){
         result = context.fn();
     }else{
-        let args = [];
-        for(let i = 0; i < arr.length; i++){
-            args.push('arr[' + i + ']');
-        }
-        result = eval('context.fn(' + args + ')');
+      context.fn(...arr);
     }
     delete context.fn;
     return result;
