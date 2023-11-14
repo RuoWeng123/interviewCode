@@ -16,6 +16,19 @@ function curry(fn, args) {
   }
 }
 
+// 写法2
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn(...args);
+    } else {
+      return function (...nextArgs) {
+        return curried(...args, ...nextArgs);
+      };
+    }
+  };
+}
+
 // es6 实现
 function curry2(fn, ...args) {
   return fn.length <= args.length ? fn(...args) : curry2.bind(null, fn, ...args);

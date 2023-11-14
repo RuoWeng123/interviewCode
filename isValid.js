@@ -1,3 +1,4 @@
+// 有效括号问题
 function isValid( s ) {
   // write code here
   let leftMap = ['(', '{', '['];

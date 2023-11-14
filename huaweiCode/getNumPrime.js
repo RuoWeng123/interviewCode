@@ -13,3 +13,44 @@ const getPrimeOfNum = (num) =>{
   }
   return res;
 }
+// 定义二叉树节点
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+// 层序遍历函数
+const levelOrderTraversal = (root) => {
+  if (!root) {
+    return [];
+  }
+  const queue = [root];
+  const res = [];
+  while (queue.length) {
+    const level = [];
+    const len = queue.length;
+    for (let i = 0; i < len; i++) {
+      const node = queue.shift();
+      level.push(node.val);
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+    res.push(level);
+  }
+  return res;
+};
+
+// 测试
+const root = new TreeNode(3);
+root.left = new TreeNode(9);
+root.right = new TreeNode(20);
+root.right.left = new TreeNode(15);
+root.right.right = new TreeNode(7);
+console.log(levelOrderTraversal(root)); // [[3], [9, 20], [15, 7]]

@@ -1,3 +1,4 @@
+// 输出为 36进制的随机码
 function getCode(len) {
   len = len || 4;
   if (len > 6) {
