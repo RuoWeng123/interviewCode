@@ -17,3 +17,33 @@ function getMinN(x, y, cntx, cnty) {
   }
   return i - 1;
 }
+console.log(getMinN(2,3,3,1));
+// 如果我现在对上面的题做一个变种，输入一个数组长度为2N； 前N位表示国家代号，后N位表示国家需要的人员数量
+// 需要从1-N中找出满足如下规则的人员分配方案：
+function getMinK(list){
+  let citys = list.slice(0, list.length/2);
+  let cityPersonList = list.slice(list.length/2);
+  let cityPersonMap = {};
+  for(let i = 0; i< citys.length; i++){
+    cityPersonMap[citys[i]] = cityPersonList[i];
+  }
+  let peopleMap = {};
+  let i = 1;
+  while(true){
+    let flag = true;
+    for(let key in cityPersonMap){
+      if(i%key === 0){
+        flag = false;
+        break;
+      } 
+    }
+    if(flag){
+      peopleMap[i] = true;
+    }
+    if(Object.keys(peopleMap).length === cityPersonList.length){
+      break;
+    }
+    i++;
+  }
+}
+console.log(getMinK([2,3,3,1]));

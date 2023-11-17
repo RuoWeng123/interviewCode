@@ -200,3 +200,7 @@ const mapDispatchToProps = { increment, incrementAsync };
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 ```
+
+## reducers 和 actions 的区别
+1. reducers 是一个纯函数，接收旧的 state 和 action，返回新的 state。
+2. actions 是一个对象，其中的每个属性都是一个函数，用于处理异步操作或者触发 state 的变化。
