@@ -52,6 +52,20 @@ class myTree {
       this.preOrderTraverseNode(node.right, callback);
     }
   }
+  // 先序 遍历,输出数组
+  preOrderTraverseNodeArr(node, arr) {
+    let result = [];
+    const main = (node) => {
+      if (node !== null) {
+        result.push(node.data);
+        main(node.left);
+        main(node.right);
+      }
+    }
+    main(node);
+    return result;
+  }
+  
   // 后序遍历
   postOrderTraverse(callback) {
     this.postOrderTraverseNode(this.root, callback);
@@ -131,5 +145,9 @@ console.log(treeInstance);
 
 // treeInstance.inOrderTraverse((data) =>{ console.log('innerSport', data)});
 // treeInstance.preOrderTraverse((data) =>{ console.log('preSport', data)});
-treeInstance.postOrderTraverse((data) =>{ console.log('postSport', data)});
+// treeInstance.postOrderTraverse((data) =>{ console.log('postSport', data)});
 
+module.exports = {
+  Node,
+  myTree,
+};
