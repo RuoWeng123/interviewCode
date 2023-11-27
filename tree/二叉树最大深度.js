@@ -1,4 +1,4 @@
-const {Tree} = require('./按之字行打印二叉树');
+const {Tree} = require('./二叉树');
 const tree = new Tree();
 tree.arrToTree([1, 2, 3, "#", "#", 4, 5]);
 
