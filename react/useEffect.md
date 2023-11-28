@@ -30,3 +30,38 @@ DOM变更后，同步调用，浏览器绘制前执行
 - 获取DOM节点
 - 保存变量
 - 获取上一次的值, 例如：
+
+
+# 如何通过父组件调用子组件的方法
+forwardRef + useImperativeHandle
+```js
+import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+
+const ChildComponent = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => ({
+    sayHello() {
+      console.log('Hello from ChildComponent');
+    }
+  }));
+
+  return <div>ChildComponent</div>;
+});
+
+function ParentComponent() {
+  const childRef = useRef();
+
+  const handleClick = () => {
+    // 调用子组件的 方法
+    childRef.current.sayHello();
+  };
+
+  return (
+    <div>
+      <ChildComponent ref={childRef} />
+      <button onClick={handleClick}>Call Child Method</button>
+    </div>
+  );
+}
+
+export default ParentComponent;
+```
