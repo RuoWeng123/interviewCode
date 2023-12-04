@@ -17,6 +17,4 @@ function solve_method(m, n, job_times) {
   return total_time;
 }
 
-if (require.main === module) {
-  console.log(solve_method(3, 5, [8, 4, 3, 2, 10]) === 13);
-}
+console.log(solve_method(3, 5, [8, 4, 3, 2, 10]) === 13);
