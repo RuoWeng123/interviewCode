@@ -12,3 +12,28 @@
 3. 服务器配置： hash 模式下，服务器只需要处理根 URL 的请求，因为 hash 后的部分不会被发送到服务器。history 模式下，服务器需要对所有可能的 URL 都进行处理，通常需要后端进行相应的配置，以确保所有的 URL 都能正确地返回应用的入口 HTML 文件。  
 4. 用户体验： history 模式的 URL 看起来更美观，更像传统的 URL，因为它没有 #。而 hash 模式的 URL 中包含 #，可能会让 URL 看起来比较奇怪。  
 5. 页面滚动行为： hash 模式下，改变 hash 不会触发页面滚动，但可以通过监听 hashchange 事件来手动处理滚动；history 模式下，浏览器会尝试模拟常规页面的滚动行为，但这通常需要额外的配置才能正常工作。 
+
+
+## vueRouter 构造函数
+```js
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  mode: 'history', // 或 'hash'，决定使用 HTML5 History 模式还是 Hash 模式
+  base: process.env.BASE_URL, // 应用的基路径，例如 '/my-app/'
+  routes: [
+    {
+      path: '/',
+      component: Home,
+    },
+    {
+      path: '/about',
+      component: About,
+    },
+    // 其他路由配置
+  ],
+});
+```
