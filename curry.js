@@ -1,5 +1,5 @@
 // 柯里化函数
-function curry(fn, args) {
+function curry_1(fn, args) {
   let  len = fn.length;
   args = args || [];
 
@@ -9,7 +9,7 @@ function curry(fn, args) {
       subArgs.push(arguments[i]);
     }
     if(subArgs.length < len){
-      return curry.call(this, fn, subArgs);
+      return curry_1.call(this, fn, subArgs);
     }else{
       return fn.apply(this, subArgs);
     }
@@ -17,19 +17,25 @@ function curry(fn, args) {
 }
 
 // 写法2
-function curry(fn) {
+function curry_2(fn) {
   return function curried(...args) {
     if (args.length >= fn.length) {
-      return fn(...args);
+      return fn.apply(this, args);
     } else {
       return function (...nextArgs) {
-        return curried(...args, ...nextArgs);
+        return curried.apply(this, [...args, ...nextArgs]);
       };
     }
   };
 }
 
+const sum = function (...args){
+  return args.reduce((a, b) => a + b, 0);
+};
+const currySum = curry_2(sum);
+console.log(currySum(1)(2)(3)(4));
+
 // es6 实现
-function curry2(fn, ...args) {
-  return fn.length <= args.length ? fn(...args) : curry2.bind(null, fn, ...args);
-}
+// function curry2(fn, ...args) {
+//   return fn.length <= args.length ? fn(...args) : curry2.bind(null, fn, ...args);
+// }

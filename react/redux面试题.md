@@ -131,3 +131,7 @@ const UserComponent = ({user, getUser}) => {
   )(UserComponent)
 }
 ```
+
+# hooks 中如何使用redux；
+- 使用useSelector 获取store中的数据
+- 使用useDispatch 获取dispatch方法

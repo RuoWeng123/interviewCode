@@ -11,7 +11,7 @@ function MyPromise(fn) {
   this.value = null;
 
   // save resolve callback
-  this.resovleCallbacks = [];
+  this.resolveCallbacks = [];
 
   this.rejectCallbacks = [];
 
@@ -22,7 +22,7 @@ function MyPromise(fn) {
     if(self.state === PENDING){
       self.state = FULFILLED;
       self.value = value;
-      self.resovleCallbacks.forEach(cb => cb(value));
+      self.resolveCallbacks.forEach(cb => cb(value));
     }
   }
   function reject(value){
@@ -44,25 +44,40 @@ MyPromise.prototype.then = function(onFulfilled, onRejected){
   onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v;
   onRejected = typeof onRejected === 'function' ? onRejected : r => { throw r };
 
-  if(this.state === PENDING){
-    this.resovleCallbacks.push(onFulfilled);
-    this.rejectCallbacks.push(onRejected);
-  }
-  if(this.state === FULFILLED){
-    onFulfilled(this.value);
-  }
-  if(this.state === REJECTED){
-    onRejected(this.value);
-  }
+  let promise2 = new MyPromise((resolve, reject) => {
+    if(this.state === PENDING){
+      this.resolveCallbacks.push(onFulfilled);
+      this.rejectCallbacks.push(onRejected);
+    }
+    if(this.state === FULFILLED){
+      onFulfilled(this.value);
+    }
+    if(this.state === REJECTED){
+      onRejected(this.value);
+    } 
+  });
+  
+  return promise2;
 }
 
+const checkIsPromise = (value) => {
+  return value && typeof value.then === 'function';
+}
 MyPromise.prototype.all = function(promises){
+  if(!Array.isArray(promises)){
+    const type = typeof promises;
+    return new TypeError(`TypeError: ${type} ${promises} is not iterable`);
+  }
+  if(promises.some(item => !checkIsPromise(item))){
+    return new TypeError(`TypeError: ${item} is not a promise`);
+  }
   let result = [];
   let count = 0;
   return new MyPromise((resolve, reject) => {
-    promises.forEach((item, index) => {
+    for(let i=0; i<promises.length; i++){
+      let item = promises[i];
       item.then(res => {
-        result[index] = res;
+        result[i] = res;
         count++;
         if(count === promises.length){
           resolve(result);
@@ -70,7 +85,7 @@ MyPromise.prototype.all = function(promises){
       }, err => {
         reject(err);
       })
-    })
+    }
   })
 }
 
@@ -85,3 +100,23 @@ MyPromise.prototype.race = function(promises){
     })
   })
 }
+
+
+
+// promise static method
+MyPromise.resolve = function(value){
+  if(value instanceof MyPromise){
+    return value;
+  }
+  return new MyPromise((resolve, reject) => {
+    resolve(value);
+  })
+}
+
+MyPromise.reject = function(value){
+  return new MyPromise((resolve, reject) => {
+    reject(value);
+  })
+}
+
+MyPromise.

@@ -146,3 +146,87 @@ class RobotWorker implements Workable {
 ```
 现在，RobotWorker类只需要依赖于它真正需要的Workable接口，而不需要实现无用的eat方法，因此它遵守了接口隔离原则。
 5. 依赖倒置原则（Dependency Inversion Principle, DIP）：高层模块不应该依赖低层模块，它们都应该依赖于抽象。这意味着要依赖于抽象（接口和抽象类），不要依赖于具体的类。
+
+
+# solid原则在vue 组件开发上是如何体现的
+1. 单一职责原则： 一个组件只做一件事，便于理解和测试
+2. 开放封闭原则： 组件的修改应该通过扩展来实现，而不是修改源代码； 因此设计时，应该考虑插槽，组合式API, 高阶组件
+3. 里氏替换原则： 在使用继承和组合时，子组件可以替换父组件而不会影响程序正确性； 例如，通过 extends 实现子组件
+```js
+<!-- 父组件 -->
+<template>
+  <div>
+    <h1>{{ makeSound() }}</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    makeSound() {
+      return 'Generic sound';
+    }
+  }
+};
+</script>
+<!-- 子组件 -->
+<template>
+  <div>
+    <h2>{{ makeSound() }}</h2>
+  </div>
+</template>
+
+<script>
+import ParentComponent from './ParentComponent.vue';
+
+export default {
+  extends: ParentComponent,
+  methods: {
+    // 子组件可以保持父组件的行为，而不修改
+    makeSound() {
+      return 'Meow';
+    }
+  }
+};
+</script>
+// ParentComponent 是一个父组件，定义了一个 makeSound 方法，而 ChildComponent 是一个子组件，通过 extends 关键字继承了父组件的行为。子组件保持了相同的接口，即 makeSound 方法，但修改了该方法的具体实现，使其返回 'Meow'。
+```
+```js
+// react 部分实现
+// 父组件
+const ParentComponent = ({ makeSound }) => {
+  return (
+    <div>
+      <h1>{makeSound()}</h1>
+    </div>
+  );
+};
+
+// 子组件
+const ChildComponent = ({ makeSound }) => {
+  // 子组件可以保持父组件的行为，而不修改
+  return (
+    <div>
+      <h2>{makeSound()}</h2>
+    </div>
+  );
+};
+
+// 使用组合来创建包含行为的组件
+const App = () => {
+  const genericSound = () => 'Generic sound';
+  const meowSound = () => 'Meow';
+
+  return (
+    <div>
+      <ParentComponent makeSound={genericSound} ...otherProps/>
+      <ChildComponent makeSound={meowSound} ...otherProps/>
+    </div>
+  );
+};
+
+export default App;
+// ParentComponent 和 ChildComponent 都是无状态的函数组件，通过接收 makeSound 函数作为 props，实现了组件的复用。在 App 组件中，我们分别传递了不同的 makeSound 函数，达到了类似于里氏替换原则的效果。
+```
+4. 接口隔离原则： 组件应该是高内聚的，不应该依赖不需要的接口； 例如，组件应该只依赖于它需要的 props，而不是依赖于整个 store；
+5. 依赖倒置原则： 组件应该依赖于抽象，而不是具体的实现； 例如，组件应该依赖于抽象的 store，而不是具体的 store 实例；

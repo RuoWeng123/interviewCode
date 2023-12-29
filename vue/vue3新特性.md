@@ -11,3 +11,35 @@
 ## 性能优化
 1. proxy 相对于 defineProperty 有更好的性能
 2. 静态树提升，引入静态树可以编译时减少虚拟dom的创建和对比
+
+# vue3 生命周期
+在 Vue 3 中，生命周期钩子函数的命名有所改变，但其基本的执行逻辑和 Vue 2 是一样的。以下是 Vue 3 中的生命周期钩子函数：
+
+beforeCreate 和 created 在 Vue 3 中被替换为 setup。
+
+beforeMount 对应 Vue 3 中的 onBeforeMount。
+
+mounted 对应 Vue 3 中的 onMounted。
+
+beforeUpdate 对应 Vue 3 中的 onBeforeUpdate。
+
+updated 对应 Vue 3 中的 onUpdated。
+
+beforeDestroy 在 Vue 3 中被替换为 onBeforeUnmount。
+
+destroyed 在 Vue 3 中被替换为 onUnmounted。
+
+activated 对应 Vue 3 中的 onActivated。
+
+deactivated 对应 Vue 3 中的 onDeactivated。
+
+errorCaptured 对应 Vue 3 中的 onErrorCaptured。
+
+注意，Vue 3 中的生命周期钩子函数需要在 setup 函数中使用。
+
+# vue3 一些特殊函数
+## readonly 用于暴露一些不能更改的属性
+## shallowRef 包住一个 基础类型或者引用类型，如果是基础类型和Ref是一样的，如果是引用类型，则直接修改属性是不能触发响应的
+ shallowRef 用于修改一个复杂数据dan'shi
+## shallowReactive 用于创建一个只读的响应式数据，只能监听一层数据的变化
+## toRef 用于创建一个响应式数据，可以监听多层数据的变化

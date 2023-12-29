@@ -42,7 +42,7 @@ console.log(s1.play, s2.play); // [1, 2, 3, 4] [1, 2, 3]
 1. 避免了引用类型的属性被所有实例共享
 2. 可以在 Child 中向 Parent 传参
 #### 缺点
-1. 方法都在构造函数中定义，每次创建实例都会创建一遍方法。
+1. 方法都在构造函数中定义，每次创建实例都会创建一遍方
 2. 无法复用父类的方法，每次创建实例都会创建一遍方法。
 
 
@@ -137,3 +137,35 @@ console.log(s1.play, s2.play); // [1, 2, 3, 4] [1, 2, 3]
 2. 子类原型上多了不需要的父类属性，存在内存上的浪费。
 3. 无法实现私有成员。
 4. 无法实现多继承，即无法继承多个类。
+
+
+async function async1() {
+  console.log('1');
+  await async2();
+  console.log('2');
+}
+
+async function async2() {
+  return new Promise(() => {
+    console.log('3');
+    resolve()
+  });
+}
+
+console.log('4');
+async1();
+
+setTimeout(() => {
+  console.log('5');
+}, 0);
+
+new Promise((resolve, reject) => {
+  console.log('6');
+  resolve();
+}).then(() => {
+  console.log('7');
+});
+
+console.log('8')  为什么我的浏览器输出是 4 1 3 6 8 7 2 5； 请主要解释一下 为什么await async2() 后为什么不执行 console.log(2), 而是先执行 6
+ChatGPT
+在你提供的代码中，主要的原因是 new Promise(() => { console.log('3'); }); 这个 Promise 的 executor 函数是同步执行的，而且没有调用 resolve 或 reject。这导致这个 Promise 不会被解决，而 await async2() 会一直等待这个 Promise 解决，因此 console.log('2') 不会被执行，而是先执行了 console.log('6')。
