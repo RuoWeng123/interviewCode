@@ -29,6 +29,13 @@
   React 生态系统更大，拥有丰富的第三方库和组件，适用于构建大型应用。
   Vue 由于其简洁和易用的API，更适合快速开发小型到中型的应用。
 
+## vue3 相对于react hook解决了那些问题
+1. 重复渲染，数据改变后，react hook 函数组件会重复渲染，而setup 函数只会执行一次，这在性能上有优势
+2. react 因为链表构建hook 的原因，对调用顺序是有要求的。而且react 会每次渲染中反复调用hook； 垃圾回收GC压力大
+3. 不必考虑几乎总是需要 useCallback 的问题，以防止传递函数prop给子组件的引用变化，导致无必要的重新渲染。
+4. react hook 有闭包陷阱，不设置正确的deps可能有问题。vue3 中自动依赖关系保证使用正确无误
+5. react hook 提供了eslint插件，避免闭包陷阱，但是也是需要配置的
+
 
 # vuex 和 redux 的区别
 ## 相同点：
@@ -204,3 +211,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ## reducers 和 actions 的区别
 1. reducers 是一个纯函数，接收旧的 state 和 action，返回新的 state。
 2. actions 是一个对象，其中的每个属性都是一个函数，用于处理异步操作或者触发 state 的变化。
+
+

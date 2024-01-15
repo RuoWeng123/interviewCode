@@ -25,3 +25,9 @@
 区别： vue watchEffect 会自动追踪依赖项，并在依赖项变化时，执行副作用。react 需要手动指定依赖到数组中;
       vue 在依赖项变化后重新执行；useEffect 重新渲染后执行
       
+## vue3 相对于react hook解决了那些问题
+1. 重复渲染，数据改变后，react hook 函数组件会重复渲染，而setup 函数只会执行一次，这在性能上有优势
+2. react 因为链表构建hook 的原因，对调用顺序是有要求的。而且react 会每次渲染中反复调用hook； 垃圾回收GC压力大
+3. 不必考虑几乎总是需要 useCallback 的问题，以防止传递函数prop给子组件的引用变化，导致无必要的重新渲染。
+4. react hook 有闭包陷阱，不设置正确的deps可能有问题。vue3 中自动依赖关系保证使用正确无误
+5. react hook 提供了eslint插件，避免闭包陷阱，但是也是需要配置的
