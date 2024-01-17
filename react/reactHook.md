@@ -193,3 +193,5 @@ function mountRef(initialValue) {
 3. 初始化时，如果effect有副作用，绑定在 workInProgress.updateQueue上；等到dom渲染完成后，再执行effect
 
 4. 更新阶段，workInProgress 此时已经交给了current树，调用useState时，先从current的hooks找到workInProgressHook，
+
+

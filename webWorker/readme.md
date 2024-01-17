@@ -22,3 +22,4 @@
 // getEntryMinPoint.worker.js
 
 4. react 使用
+
