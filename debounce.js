@@ -46,3 +46,34 @@ function debounce(func, wait, immediate) {
   }
   return debounced
 }
+
+
+function throttle(func, wait) {
+  var timeout
+  return function () {
+    var context = this
+    var args = arguments
+    
+    // 如果当前timtout不存在，直接执行，执行后，将timeout置为null
+    if (!timeout) {
+      timeout = setTimeout(function() {
+        timeout = null
+        func.apply(context, args)
+      }, wait)
+    }
+  }
+}
+
+function throttleByTime(func, wait) {
+  var timeout, previous = 0
+  return function () {
+    var context = this
+    var args = arguments
+    var now = +new Date()
+    
+    if (now - previous > wait) {
+      func.apply(context, args)
+      previous = now
+    }
+  }
+}

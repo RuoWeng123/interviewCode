@@ -1,4 +1,5 @@
 /**
+ * @description: 全排列
  * @param {number[]} arr
  * @return {number[][]}
  */

@@ -1,3 +1,6 @@
+/*
+@description: 有子节点的双向链表
+*/
 function doublyLinkedList() {
   this.head = null;
   this.tail = null;
