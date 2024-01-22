@@ -21,4 +21,7 @@ console.log(map2.size); // 2
 map2.clear();
 console.log(map2.size); // 0
 
+console.log(map1.keys()); // [Map Iterator] { 1, 2, 3, 4, 5 }
+console.log(map1.values()); // [Map Iterator] { 'val1', 'val2', 'val3', 'val4', 'val5' }
+
 // weekMap 和 Map的区别，weekMap中的key只能是对象，且对象的引用地址不能改变

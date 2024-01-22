@@ -25,7 +25,7 @@
 // }
 
 // console.log(sortArr([{val: 2},{val: 1},{val: 5},{val: 4},{val: 3}]));
-
+// 该方法用于移除 字符串中 出现次数最少的字符，如果有多个字符出现次数一样，都移除
 function formatStr(str){
   let map = new Map();
   let minNum = 0;

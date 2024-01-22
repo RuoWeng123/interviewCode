@@ -8,11 +8,13 @@ function sendRequest(urls, maxNum) {
   const result = new Array(len).fill(false);
   let count = 0;
   return new Promise((resolve, reject) => {
+    // 一开始先执行 maxNum 数量
     while (count < maxNum) {
       next();
     }
     function next() {
       let current = count++;
+      // 循环跳出 条件，如果整体 长度超过 urls.length; resolve() 跳出 promise
       if (current >= len) {
         !result.includes(false) && resolve(result);
         return;
@@ -22,7 +24,9 @@ function sendRequest(urls, maxNum) {
       new Promise(resolve => resolve(url))
         .then((res) => {
           console.error(`完成 ${current}`, new Date().toLocaleString());
+          // 将返回值设置  到 预制的列表中
           result[current] = res;
+          // 如果没有到 队尾，就接着next
           if (current < len) {
             next();
           }
@@ -42,3 +46,4 @@ const requests = new Array(50).fill('url').map((item, index) => item + index);
 sendRequest(requests, 5).then((res) => {
   console.log('finish', res);
 });
+

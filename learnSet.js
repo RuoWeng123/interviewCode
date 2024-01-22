@@ -14,7 +14,7 @@ console.log(set2.size); // 4
 
 set2.delete('1');
 console.log(set2);
-console.log(set2.size);
+console.log(set2.size); // 3
 
 set2.clear();
 console.log(set2.size);
@@ -27,5 +27,6 @@ let arr = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
 let set3 = new Set(arr);
 console.log(set3);
 
+console.log(set3.keys()); // [Set Iterator] { 1, 2, 3, 4, 5 }
 
 // weekSet 与set的区别, weekSet中的元素只能是对象，且对象的引用地址不能改变
