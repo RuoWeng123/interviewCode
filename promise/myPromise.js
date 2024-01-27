@@ -119,4 +119,3 @@ MyPromise.reject = function(value){
   })
 }
 
-MyPromise.

@@ -36,6 +36,6 @@ const currySum = curry_2(sum);
 console.log(currySum(1)(2)(3)(4));
 
 // es6 实现
-// function curry2(fn, ...args) {
+// function curry2(fn, ...args) {      
 //   return fn.length <= args.length ? fn(...args) : curry2.bind(null, fn, ...args);
 // }

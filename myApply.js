@@ -1,16 +1,20 @@
-Function.prototype.apply = function(context, arr){
+Function.prototype.myApply = function(context, argsArray) {
     context = context || window;
     context.fn = this;
+  
     let result;
-    if(!arr){
-        result = context.fn();
-    }else{
-      context.fn(...arr);
+  
+    if (!argsArray) {
+      result = context.fn();
+    } else {
+      // 使用 apply 方法传递参数数组
+      result = context.fn(...argsArray);
     }
+  
     delete context.fn;
     return result;
-}
-
+  };
+  
 Function.prototype.call = function(context, ...args){
     context = context || window;
     context.fn = this;

@@ -12,6 +12,17 @@ function debounce(func, wait) {
   }
 }
 
+function debounce(func, wait) {
+  var timeout
+  return function (...args) {
+    
+    clearTimeout(timeout)
+    timeout = setTimeout(() =>{
+      timeout = null;
+      return func.apply(this, args)
+    }, wait)
+  }
+}
 // 支持立即执行 和取消
 function debounce(func, wait, immediate) {
   var timeout, result

@@ -23,3 +23,28 @@ const throttle_2 = (fn, delay) => {
     }
   };
 }
+
+function throttle_3(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    if(!timer) {
+      timer = setTimeout(() => {
+        timer = null;
+        return fn.apply(this, args);
+      }, delay);
+    }
+  }
+}
+
+// 如果我需要立刻执行
+function throttle_4(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    if(!timer) {
+      fn.apply(this, args);
+      timer = setTimeout(() => {
+        timer = null;
+      }, delay);
+    }
+  }
+}

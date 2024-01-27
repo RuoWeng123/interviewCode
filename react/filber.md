@@ -1,6 +1,18 @@
 # react fiber
 ## 背景
  react16之前采用递归方式处理组件树（或者说 虚拟dom），这种方式一开始就不能中断，如果需要对比大量的虚拟节点，这将会造成主线程阻塞，页面卡顿。
+## 浏览器一帧会经过下面这几个过程：
+
+接受输入事件
+执行事件回调
+开始一帧
+执行 RAF (RequestAnimationFrame)
+页面布局，样式计算
+渲染
+执行 RIC  (RequestIdelCallback)
+
+第七步的 RIC 事件不是每一帧结束都会执行，只有在一帧的 16ms 中做完了前面 6 件事儿且还有剩余时间，才会执行。这里提一下，如果一帧执行结束后还有时间执行 RIC 事件，那么下一帧需要在事件执行结束才能继续渲染，所以 RIC 执行不要超过 30ms，如果长时间不将控制权交还给浏览器，会影响下一帧的渲染，导致页面出现卡顿和事件响应不及时。
+
 ## 定义
 为了解决 React 在渲染过程中无法中断、无法复用渲染状态、无法立即执行的问题。
 ## fiber 原理
@@ -58,6 +70,6 @@ function FiberNode(
 
 ## 双缓冲技术：  有一个 currentTree 和 一个 workTree；
 currentTree，显示在页面上的视图
-workTree, 用于计算的视图，一个fiber树    
+workTree, 用于计算的视图，一个fiber树    , 每次更新时，从current 复制一份
 * state 和props：  memoizedProps; memoizedState, pendingProps 让react 知道组件上的上一个状态以及将要应用的状态，通过比较这些值来判断是否更新。
 * subTreeFlags 记录了fiber 需要处理的副作用，commit 阶段一次执行
