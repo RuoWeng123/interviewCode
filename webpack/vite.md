@@ -68,3 +68,62 @@ webpack是基于nodejs运行的，但js只能单线程运行，无法利用多�
 vite
 vite预构建与按需编译的过程，都是使用esbuild完成的。
 esbuild是用go语言编写的，可以充分利用多核CPU的优势，所以vite开发环境下的预构建与按需编译速度，都是非常快的。
+
+
+## vite 基本配置
+```js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  // 基本配置
+  root: './',
+  // 入口文件
+  entry: './main.js',
+  // 输出文件
+  output: {
+    filename: 'bundle.js',
+  },
+  // 模块解析器
+  resolve: {
+    extensions: ['.js', '.ts', '.vue'],
+  },
+  // 模块打包器
+  build: {
+    target: 'esnext',
+  },
+  // 开发服务器配置
+  server: {
+    port: 3000,
+    // 开启热重载
+    hot: true,
+    // 开启 HMR
+    hmr: true,
+  },
+  // 构建配置
+  build: {
+    // 输出文件格式
+    format: 'esm',
+    // 文件压缩
+    minify: true,
+    // 代码分割
+    chunkSize: 10000,
+  },
+  // 环境变量配置
+  env: {
+    // 在开发环境中使用 DEBUG 变量
+    DEBUG: process.env.NODE_ENV === 'development' ? 'true' : 'false',
+  },
+  // 其他配置
+  plugins: [
+    // 添加一个插件
+    {
+      name: 'my-plugin',
+      // 配置插件
+      options: {
+        // ...
+      },
+    },
+  ],
+});
+
+```

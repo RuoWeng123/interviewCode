@@ -74,17 +74,19 @@ MyPromise.prototype.all = function(promises){
   let result = [];
   let count = 0;
   return new MyPromise((resolve, reject) => {
-    for(let i=0; i<promises.length; i++){
+    try {
       let item = promises[i];
-      item.then(res => {
-        result[i] = res;
+      Promise.resolve(item).then(res => {
+        result.push(res);
         count++;
-        if(count === promises.length){
+        if (count === promises.length) {
           resolve(result);
         }
-      }, err => {
+      }).catch(err => {
         reject(err);
-      })
+      });
+    } catch (err) {
+      reject(err);
     }
   })
 }
@@ -101,6 +103,17 @@ MyPromise.prototype.race = function(promises){
   })
 }
 
+MyPromise.prototype.catch = function (onRejected) {
+  return this.then(undefined, onRejected);
+}
+MyPromise.prototype.finally = function(callback) {
+  return this.then(
+    // 在 Promise 对象状态变为 resolved 时执行回调
+    value => MyPromise.resolve(callback()).then(() => value),
+    // 在 Promise 对象状态变为 rejected 时执行回调
+    reason => MyPromise.resolve(callback()).then(() => {throw reason})
+  )
+}
 
 
 // promise static method
