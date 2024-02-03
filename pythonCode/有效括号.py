@@ -5,7 +5,7 @@ def checkIsValidBracket(s):
         if i == '(' or i == '{' or i == '[':
             stack.append(i)
         else:
-            if(len(stack) == 0):
+            if len(stack) == 0:
                 return False
             if i == ')' and stack[-1] != '(':
                 return False
@@ -23,6 +23,7 @@ def checkIsValidBracket(s):
 print(checkIsValidBracket('(([{]))'))
 
 # 采用map 版本
+# 学习 in 循环以及  判断是否为空
 def checkIsValidBracket2(str):
     stack = []
     bracketMap = {')':'(', ']':'[', '}':'{'}
